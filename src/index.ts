@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-import * as firebase from './default-namespace';
+import {Agent} from 'http';
+import * as credential from './credentials';
+import {
+  initializeApp, FirebaseApp, FirebaseAppOptions,
+  getApp, getApps,
+} from './firebase-app';
 
-// Register the Database service
-// For historical reasons, the database code is included as minified code and registers itself
-// as a side effect of requiring the file.
-/* tslint:disable:no-var-requires */
-// require('./database/database');
-/* tslint:enable:no-var-requires */
-
-export = firebase;
+export {
+  initializeApp, getApp, getApps, FirebaseApp, FirebaseAppOptions,
+  credential,
+};

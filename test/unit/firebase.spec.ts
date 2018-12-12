@@ -45,7 +45,7 @@ describe('Firebase', () => {
 
   afterEach(() => {
     const deletePromises: Array<Promise<void>> = [];
-    firebaseAdmin.apps.forEach((app) => {
+    firebaseAdmin.getApps().forEach((app) => {
       deletePromises.push(app.delete());
     });
 
@@ -109,7 +109,7 @@ describe('Firebase', () => {
         credential: firebaseAdmin.credential.cert(mocks.certificateObject),
       });
 
-      return firebaseAdmin.app().INTERNAL.getToken()
+      return firebaseAdmin.getApp().INTERNAL.getToken()
         .should.eventually.have.keys(['accessToken', 'expirationTime']);
     });
 
@@ -119,7 +119,7 @@ describe('Firebase', () => {
         credential: firebaseAdmin.credential.cert(keyPath),
       });
 
-      return firebaseAdmin.app().INTERNAL.getToken()
+      return firebaseAdmin.getApp().INTERNAL.getToken()
         .should.eventually.have.keys(['accessToken', 'expirationTime']);
     });
 
@@ -131,7 +131,7 @@ describe('Firebase', () => {
         credential: firebaseAdmin.credential.applicationDefault(),
       });
 
-      return firebaseAdmin.app().INTERNAL.getToken().then((token) => {
+      return firebaseAdmin.getApp().INTERNAL.getToken().then((token) => {
         if (typeof credPath === 'undefined') {
           delete process.env.GOOGLE_APPLICATION_CREDENTIALS;
         } else {
@@ -156,76 +156,8 @@ describe('Firebase', () => {
         credential: firebaseAdmin.credential.refreshToken(mocks.refreshToken),
       });
 
-      return firebaseAdmin.app().INTERNAL.getToken()
+      return firebaseAdmin.getApp().INTERNAL.getToken()
         .should.eventually.have.keys(['accessToken', 'expirationTime']);
-    });
-  });
-
-  describe('#database()', () => {
-    it('should throw if the app has not be initialized', () => {
-      expect(() => {
-        return firebaseAdmin.database();
-      }).to.throw('The default Firebase app does not exist.');
-    });
-
-    it('should throw given no databaseURL key when initializing the app', () => {
-      firebaseAdmin.initializeApp(mocks.appOptionsNoDatabaseUrl);
-
-      expect(() => {
-        firebaseAdmin.database();
-      }).to.throw('Can\'t determine Firebase Database URL');
-    });
-
-    it('should return the database service', () => {
-      firebaseAdmin.initializeApp(mocks.appOptions);
-      expect(() => {
-        return firebaseAdmin.database();
-      }).not.to.throw();
-    });
-  });
-
-  describe('#auth', () => {
-    it('should throw if the app has not be initialized', () => {
-      expect(() => {
-        return firebaseAdmin.auth();
-      }).to.throw('The default Firebase app does not exist.');
-    });
-
-    it('should return the auth service', () => {
-      firebaseAdmin.initializeApp(mocks.appOptions);
-      expect(() => {
-        return firebaseAdmin.auth();
-      }).not.to.throw();
-    });
-  });
-
-  describe('#messaging', () => {
-    it('should throw if the app has not be initialized', () => {
-      expect(() => {
-        return firebaseAdmin.messaging();
-      }).to.throw('The default Firebase app does not exist.');
-    });
-
-    it('should return the messaging service', () => {
-      firebaseAdmin.initializeApp(mocks.appOptions);
-      expect(() => {
-        return firebaseAdmin.messaging();
-      }).not.to.throw();
-    });
-  });
-
-  describe('#storage', () => {
-    it('should throw if the app has not be initialized', () => {
-      expect(() => {
-        return firebaseAdmin.storage();
-      }).to.throw('The default Firebase app does not exist.');
-    });
-
-    it('should return the storage service', () => {
-      firebaseAdmin.initializeApp(mocks.appOptions);
-      expect(() => {
-        return firebaseAdmin.storage();
-      }).not.to.throw();
     });
   });
 });

@@ -19,7 +19,6 @@ import * as nock from 'nock';
 
 import * as mocks from '../resources/mocks';
 
-import {FirebaseNamespace} from '../../src/firebase-namespace';
 import {FirebaseApp, FirebaseAppOptions} from '../../src/firebase-app';
 import { HttpError, HttpResponse } from '../../src/utils/api-request';
 
@@ -30,8 +29,7 @@ import { HttpError, HttpResponse } from '../../src/utils/api-request';
  * @return {FirebaseApp} A new FirebaseApp instance with the provided options.
  */
 export function createAppWithOptions(options: object) {
-  const mockFirebaseNamespaceInternals = new FirebaseNamespace().INTERNAL;
-  return new FirebaseApp(options as FirebaseAppOptions, mocks.appName, mockFirebaseNamespaceInternals);
+  return new FirebaseApp(options as FirebaseAppOptions, mocks.appName);
 }
 
 

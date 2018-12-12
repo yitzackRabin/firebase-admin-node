@@ -17,7 +17,7 @@
 // General
 import './firebase.spec';
 import './firebase-app.spec';
-import './firebase-namespace.spec';
+// import './firebase-namespace.spec';
 
 // Utilities
 import './utils/index.spec';

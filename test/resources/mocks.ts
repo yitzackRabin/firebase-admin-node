@@ -24,7 +24,6 @@ import stream = require('stream');
 import * as _ from 'lodash';
 import * as jwt from 'jsonwebtoken';
 
-import {FirebaseNamespace} from '../../src/firebase-namespace';
 import {FirebaseServiceInterface} from '../../src/firebase-service';
 import {FirebaseApp, FirebaseAppOptions} from '../../src/firebase-app';
 import {Certificate, Credential, CertCredential, GoogleOAuthAccessToken} from '../../src/auth/credential';
@@ -92,22 +91,18 @@ export class MockCredential implements Credential {
 }
 
 export function app(): FirebaseApp {
-  const namespaceInternals = new FirebaseNamespace().INTERNAL;
-  namespaceInternals.removeApp = _.noop;
-  return new FirebaseApp(appOptions, appName, namespaceInternals);
+  return new FirebaseApp(appOptions, appName);
 }
 
 export function mockCredentialApp(): FirebaseApp {
   return new FirebaseApp({
     credential: new MockCredential(),
     databaseURL,
-  }, appName, new FirebaseNamespace().INTERNAL);
+  }, appName);
 }
 
 export function appWithOptions(options: FirebaseAppOptions): FirebaseApp {
-  const namespaceInternals = new FirebaseNamespace().INTERNAL;
-  namespaceInternals.removeApp = _.noop;
-  return new FirebaseApp(options, appName, namespaceInternals);
+  return new FirebaseApp(options, appName);
 }
 
 export function appReturningNullAccessToken(): FirebaseApp {
@@ -118,7 +113,7 @@ export function appReturningNullAccessToken(): FirebaseApp {
       getCertificate: () => credential.getCertificate(),
     } as any,
     databaseURL,
-  }, appName, new FirebaseNamespace().INTERNAL);
+  }, appName);
 }
 
 export function appReturningMalformedAccessToken(): FirebaseApp {
@@ -128,7 +123,7 @@ export function appReturningMalformedAccessToken(): FirebaseApp {
       getCertificate: () => credential.getCertificate(),
     } as any,
     databaseURL,
-  }, appName, new FirebaseNamespace().INTERNAL);
+  }, appName);
 }
 
 export function appRejectedWhileFetchingAccessToken(): FirebaseApp {
@@ -138,7 +133,7 @@ export function appRejectedWhileFetchingAccessToken(): FirebaseApp {
       getCertificate: () => credential.getCertificate(),
     } as any,
     databaseURL,
-  }, appName, new FirebaseNamespace().INTERNAL);
+  }, appName);
 }
 
 export let refreshToken = {

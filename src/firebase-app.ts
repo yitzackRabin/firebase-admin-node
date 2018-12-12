@@ -16,9 +16,8 @@
 
 import {ApplicationDefaultCredential, Credential, GoogleOAuthAccessToken} from './auth/credential';
 import * as validator from './utils/validator';
-import {deepCopy, deepExtend} from './utils/deep-copy';
+import {deepCopy} from './utils/deep-copy';
 import {FirebaseServiceInterface} from './firebase-service';
-import {FirebaseNamespaceInternals} from './firebase-namespace';
 import {AppErrorCodes, FirebaseAppError} from './utils/error';
 
 import {Auth} from './auth/auth';
@@ -31,12 +30,106 @@ import {FirestoreService} from './firestore/firestore';
 import {InstanceId} from './instance-id/instance-id';
 import {ProjectManagement} from './project-management/project-management';
 
+import * as fs from 'fs';
 import {Agent} from 'http';
 
+const DEFAULT_APP_NAME = '[DEFAULT]';
+
+const apps: {[name: string]: FirebaseApp} = {};
+
+
+export function initializeApp(options?: FirebaseAppOptions, appName = DEFAULT_APP_NAME): FirebaseApp {
+  if (typeof options === 'undefined') {
+    options = loadOptionsFromEnvVar();
+    options.credential = new ApplicationDefaultCredential();
+  }
+  if (typeof appName !== 'string' || appName === '') {
+    throw new FirebaseAppError(
+      AppErrorCodes.INVALID_APP_NAME,
+      `Invalid Firebase app name "${appName}" provided. App name must be a non-empty string.`,
+    );
+  } else if (appName in apps) {
+    if (appName === DEFAULT_APP_NAME) {
+      throw new FirebaseAppError(
+        AppErrorCodes.DUPLICATE_APP,
+        'The default Firebase app already exists. This means you called initializeApp() ' +
+        'more than once without providing an app name as the second argument. In most cases ' +
+        'you only need to call initializeApp() once. But if you do want to initialize ' +
+        'multiple apps, pass a second argument to initializeApp() to give each app a unique ' +
+        'name.',
+      );
+    } else {
+      throw new FirebaseAppError(
+        AppErrorCodes.DUPLICATE_APP,
+        `Firebase app named "${appName}" already exists. This means you called initializeApp() ` +
+        'more than once with the same app name as the second argument. Make sure you provide a ' +
+        'unique name every time you call initializeApp().',
+      );
+    }
+  }
+
+  const app = new FirebaseApp(options, appName);
+  apps[appName] = app;
+  return app;
+}
+
+function loadOptionsFromEnvVar(): FirebaseAppOptions {
+  const keyName = 'FIREBASE_CONFIG';
+  const config = process.env[keyName];
+  if (!validator.isNonEmptyString(config)) {
+    return {};
+  }
+  try {
+    const contents = config.startsWith('{') ? config : fs.readFileSync(config, 'utf8');
+    return JSON.parse(contents) as FirebaseAppOptions;
+  } catch (error) {
+    // Throw a nicely formed error message if the file contents cannot be parsed
+    throw new FirebaseAppError(
+      AppErrorCodes.INVALID_APP_OPTIONS,
+      'Failed to parse app options file: ' + error,
+    );
+  }
+}
+
+export function getApps(): FirebaseApp[] {
+  return Object.keys(apps).map((key) => {
+    return apps[key];
+  });
+}
+
 /**
- * Type representing a callback which is called every time an app lifecycle event occurs.
+ * Returns the FirebaseApp instance with the provided name (or the default FirebaseApp instance
+ * if no name is provided).
+ *
+ * @param {string} [appName=DEFAULT_APP_NAME] Optional name of the FirebaseApp instance to return.
+ * @return {FirebaseApp} The FirebaseApp instance which has the provided name.
  */
-export type AppHook = (event: string, app: FirebaseApp) => void;
+export function getApp(appName = DEFAULT_APP_NAME): FirebaseApp {
+  if (typeof appName !== 'string' || appName === '') {
+    throw new FirebaseAppError(
+      AppErrorCodes.INVALID_APP_NAME,
+      `Invalid Firebase app name "${appName}" provided. App name must be a non-empty string.`,
+    );
+  } else if (!(appName in apps)) {
+    let errorMessage: string = (appName === DEFAULT_APP_NAME)
+      ? 'The default Firebase app does not exist. ' : `Firebase app named "${appName}" does not exist. `;
+    errorMessage += 'Make sure you call initializeApp() before using any of the Firebase services.';
+
+    throw new FirebaseAppError(AppErrorCodes.NO_APP, errorMessage);
+  }
+
+  return apps[appName];
+}
+
+function removeApp(appName: string): void {
+  if (typeof appName === 'undefined') {
+    throw new FirebaseAppError(
+      AppErrorCodes.INVALID_APP_NAME,
+      `No Firebase app name provided. App name must be a non-empty string.`,
+    );
+  }
+  delete apps[appName];
+}
 
 /**
  * Type representing the options object passed into initializeApp().
@@ -63,7 +156,7 @@ export interface FirebaseAccessToken {
 /**
  * Internals of a FirebaseApp instance.
  */
-export class FirebaseAppInternals {
+class FirebaseAppInternals {
   private isDeleted_ = false;
   private cachedToken_: FirebaseAccessToken;
   private cachedTokenPromise_: Promise<FirebaseAccessToken>;
@@ -249,7 +342,7 @@ export class FirebaseApp {
   private services_: {[name: string]: FirebaseServiceInterface} = {};
   private isDeleted_ = false;
 
-  constructor(options: FirebaseAppOptions, name: string, private firebaseInternals_: FirebaseNamespaceInternals) {
+  constructor(options: FirebaseAppOptions, name: string) {
     this.name_ = name;
     this.options_ = deepCopy(options) as FirebaseAppOptions;
 
@@ -275,12 +368,6 @@ export class FirebaseApp {
         `the Credential interface.`,
       );
     }
-
-    Object.keys(firebaseInternals_.serviceFactories).forEach((serviceName) => {
-      // Defer calling createService() until the service is accessed
-      (this as {[key: string]: any})[serviceName] = this.getService_.bind(this, serviceName);
-    });
-
     this.INTERNAL = new FirebaseAppInternals(this.options_.credential);
   }
 
@@ -386,6 +473,15 @@ export class FirebaseApp {
     return deepCopy(this.options_) as FirebaseAppOptions;
   }
 
+  public getService<T extends FirebaseServiceInterface>(serviceName: string, fn: () => T): T {
+    this.checkDestroyed_();
+
+    if (!(serviceName in this.services_)) {
+      this.services_[serviceName] = fn();
+    }
+    return this.services_[serviceName] as T;
+  }
+
   /**
    * Deletes the FirebaseApp instance.
    *
@@ -393,7 +489,7 @@ export class FirebaseApp {
    */
   public delete(): Promise<void> {
     this.checkDestroyed_();
-    this.firebaseInternals_.removeApp(this.name_);
+    removeApp(this.name_);
 
     this.INTERNAL.delete();
 
@@ -416,33 +512,6 @@ export class FirebaseApp {
       this.services_[serviceName] = service;
     }
     return service;
-  }
-
-  /**
-   * Returns the service instance associated with this FirebaseApp instance (creating it on demand
-   * if needed). This is used for looking up monkeypatched service instances.
-   *
-   * @param {string} serviceName The name of the service instance to return.
-   * @return {FirebaseServiceInterface} The service instance with the provided name.
-   */
-  private getService_(serviceName: string): FirebaseServiceInterface {
-    this.checkDestroyed_();
-
-    if (!(serviceName in this.services_)) {
-      this.services_[serviceName] = this.firebaseInternals_.serviceFactories[serviceName](
-        this,
-        this.extendApp_.bind(this),
-      );
-    }
-
-    return this.services_[serviceName];
-  }
-
-  /**
-   * Callback function used to extend an App instance at the time of service instance creation.
-   */
-  private extendApp_(props: {[prop: string]: any}): void {
-    deepExtend(this, props);
   }
 
   /**
