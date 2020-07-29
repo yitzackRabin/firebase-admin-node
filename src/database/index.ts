@@ -16,10 +16,11 @@
 
 import { FirebaseApp } from '../firebase-app';
 import { ServerValue as sv } from '@firebase/database';
+import * as adminDb from './database';
 import * as firebaseRtdbTypesApi from '@firebase/database-types';
 import * as firebaseAdmin from '../index';
 
-export function database(app?: FirebaseApp): firebaseRtdbTypesApi.FirebaseDatabase {
+export function database(app?: FirebaseApp): adminDb.Database {
   if (typeof(app) === 'undefined') {
     app = firebaseAdmin.app();
   }
@@ -29,7 +30,7 @@ export function database(app?: FirebaseApp): firebaseRtdbTypesApi.FirebaseDataba
 /**
  * We must define a namespace to make the typings work correctly. Otherwise
  * `admin.database()` cannot be called like a function. Temporarily,
- * admin.database is used as the namespace name because we cannot barrel 
+ * admin.database is used as the namespace name because we cannot barrel
  * re-export the contents from @firebase/database-types, and we want it to
  * match the namespacing in the re-export inside src/index.d.ts
  */
@@ -49,5 +50,5 @@ export namespace admin.database {
   // There is a known bug where @firebase/database-types FirebaseDatabase
   // cannot be used as an interface for @firebase/database Database.
   // See https://github.com/firebase/firebase-js-sdk/issues/3476
-  export import Database = firebaseRtdbTypesApi.FirebaseDatabase;
+  export import Database = adminDb.Database;
 }
