@@ -26,7 +26,7 @@ import { Auth } from './auth/auth';
 import { MachineLearning } from './machine-learning/machine-learning';
 import { Messaging } from './messaging/messaging';
 import { Storage } from './storage/storage';
-import { Database } from './database/database';
+import { database as _db } from './database/index';
 import { DatabaseService } from './database/database-internal';
 import { Firestore } from '@google-cloud/firestore';
 import { FirestoreService } from './firestore/firestore-internal';
@@ -36,25 +36,12 @@ import { ProjectManagement } from './project-management/project-management';
 import { SecurityRules } from './security-rules/security-rules';
 import { RemoteConfig } from './remote-config/remote-config';
 
-import { Agent } from 'http';
+import { AppOptions as FirebaseAppOptions, app } from './namespace-types';
 
 /**
  * Type representing a callback which is called every time an app lifecycle event occurs.
  */
 export type AppHook = (event: string, app: FirebaseApp) => void;
-
-/**
- * Type representing the options object passed into initializeApp().
- */
-export interface FirebaseAppOptions {
-  credential?: Credential;
-  databaseAuthVariableOverride?: object | null;
-  databaseURL?: string;
-  serviceAccountId?: string;
-  storageBucket?: string;
-  projectId?: string;
-  httpAgent?: Agent;
-}
 
 /**
  * Type representing a Firebase OAuth access token (derived from a Google OAuth2 access token) which
@@ -246,7 +233,7 @@ export class FirebaseAppInternals {
 /**
  * Global context object for a collection of services using a shared authentication state.
  */
-export class FirebaseApp {
+export class FirebaseApp implements app.App {
   public INTERNAL: FirebaseAppInternals;
 
   private name_: string;
@@ -306,7 +293,7 @@ export class FirebaseApp {
    *
    * @return {Database} The Database service instance of this app.
    */
-  public database(url?: string): Database {
+  public database(url?: string): _db.Database {
     const service: DatabaseService = this.ensureService_('database', () => {
       const dbService: typeof DatabaseService = require('./database/database-internal').DatabaseService;
       return new dbService(this);

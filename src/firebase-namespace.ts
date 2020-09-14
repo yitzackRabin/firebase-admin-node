@@ -17,7 +17,7 @@
 import fs = require('fs');
 import { deepExtend } from './utils/deep-copy';
 import { AppErrorCodes, FirebaseAppError } from './utils/error';
-import { AppHook, FirebaseApp, FirebaseAppOptions } from './firebase-app';
+import { AppHook, FirebaseApp } from './firebase-app';
 import { FirebaseServiceFactory, FirebaseServiceInterface } from './firebase-service';
 import {
   cert, refreshToken, applicationDefault
@@ -37,6 +37,7 @@ import { RemoteConfig } from './remote-config/remote-config';
 
 import * as validator from './utils/validator';
 import { getSdkVersion } from './utils/index';
+import { AppOptions as FirebaseAppOptions } from './namespace-types';
 
 const DEFAULT_APP_NAME = '[DEFAULT]';
 

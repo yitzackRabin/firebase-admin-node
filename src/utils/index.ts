@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { FirebaseApp, FirebaseAppOptions } from '../firebase-app';
+import { FirebaseApp } from '../firebase-app';
+import { AppOptions } from '../namespace-types';
 import { ServiceAccountCredential, ComputeEngineCredential } from '../credential/credential-internal';
 
 import * as validator from './validator';
@@ -75,7 +76,7 @@ export function addReadonlyGetter(obj: object, prop: string, value: any): void {
  * @return {string} A project ID string or null.
  */
 export function getExplicitProjectId(app: FirebaseApp): string | null {
-  const options: FirebaseAppOptions = app.options;
+  const options: AppOptions = app.options;
   if (validator.isNonEmptyString(options.projectId)) {
     return options.projectId;
   }

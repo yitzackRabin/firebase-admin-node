@@ -19,6 +19,13 @@ import { deepCopy } from '../utils/deep-copy';
 import { AuthClientErrorCode, FirebaseAuthError } from '../utils/error';
 import { auth } from './index';
 
+import MultiFactorConfig = auth.MultiFactorConfig;
+import MultiFactorConfigState = auth.MultiFactorConfigState;
+import AuthFactorType = auth.AuthFactorType;
+import EmailSignInProviderConfig = auth.EmailSignInProviderConfig;
+import SAMLAuthProviderConfig = auth.SAMLAuthProviderConfig;
+import OIDCAuthProviderConfig = auth.OIDCAuthProviderConfig;
+
 /** A maximum of 10 test phone number / code pairs can be configured. */
 export const MAXIMUM_TEST_PHONE_NUMBERS = 10;
 
@@ -106,20 +113,16 @@ const AUTH_FACTOR_SERVER_TO_CLIENT_TYPE: {[key: string]: AuthFactorType} =
 
 /** Server side multi-factor configuration. */
 export interface MultiFactorAuthServerConfig {
-  state?: auth.MultiFactorConfigState;
+  state?: MultiFactorConfigState;
   enabledProviders?: AuthFactorServerType[];
 }
-
-import MultiFactorConfig = auth.MultiFactorConfig;
-import AuthFactorType = auth.AuthFactorType;
-
 
 /**
  * Defines the multi-factor config class used to convert client side MultiFactorConfig
  * to a format that is understood by the Auth server.
  */
 export class MultiFactorAuthConfig implements MultiFactorConfig {
-  public readonly state: auth.MultiFactorConfigState;
+  public readonly state: MultiFactorConfigState;
   public readonly factorIds: AuthFactorType[];
 
   /**
@@ -275,8 +278,6 @@ export function validateTestPhoneNumbers(
   }
 }
 
-import EmailSignInProviderConfig = auth.EmailSignInProviderConfig;
-
 /**
  * Defines the email sign-in config class used to convert client side EmailSignInConfig
  * to a format that is understood by the Auth server.
@@ -377,7 +378,7 @@ export class EmailSignInConfig implements EmailSignInProviderConfig {
  * Defines the SAMLConfig class used to convert a client side configuration to its
  * server side representation.
  */
-export class SAMLConfig implements auth.SAMLAuthProviderConfig {
+export class SAMLConfig implements SAMLAuthProviderConfig {
   public readonly enabled: boolean;
   public readonly displayName?: string;
   public readonly providerId: string;
@@ -399,7 +400,7 @@ export class SAMLConfig implements auth.SAMLAuthProviderConfig {
    * @return {?SAMLConfigServerRequest} The resulting server request or null if not valid.
    */
   public static buildServerRequest(
-    options: Partial<auth.SAMLAuthProviderConfig>,
+    options: Partial<SAMLAuthProviderConfig>,
     ignoreMissingFields = false): SAMLConfigServerRequest | null {
     const makeRequest = validator.isNonNullObject(options) &&
         (options.providerId || ignoreMissingFields);
@@ -465,7 +466,7 @@ export class SAMLConfig implements auth.SAMLAuthProviderConfig {
    * @param {boolean=} ignoreMissingFields Whether to ignore missing fields.
    */
   public static validate(
-    options: Partial<auth.SAMLAuthProviderConfig>,
+    options: Partial<SAMLAuthProviderConfig>,
     ignoreMissingFields = false): void {
     const validKeys = {
       enabled: true,
@@ -643,7 +644,7 @@ export class SAMLConfig implements auth.SAMLAuthProviderConfig {
  * Defines the OIDCConfig class used to convert a client side configuration to its
  * server side representation.
  */
-export class OIDCConfig implements auth.OIDCAuthProviderConfig {
+export class OIDCConfig implements OIDCAuthProviderConfig {
   public readonly enabled: boolean;
   public readonly displayName?: string;
   public readonly providerId: string;
@@ -661,7 +662,7 @@ export class OIDCConfig implements auth.OIDCAuthProviderConfig {
    * @return {?OIDCConfigServerRequest} The resulting server request or null if not valid.
    */
   public static buildServerRequest(
-    options: Partial<auth.OIDCAuthProviderConfig>,
+    options: Partial<OIDCAuthProviderConfig>,
     ignoreMissingFields = false): OIDCConfigServerRequest | null {
     const makeRequest = validator.isNonNullObject(options) &&
         (options.providerId || ignoreMissingFields);
@@ -707,7 +708,7 @@ export class OIDCConfig implements auth.OIDCAuthProviderConfig {
    * @param {OIDCAuthProviderRequest} options The options object to validate.
    * @param {boolean=} ignoreMissingFields Whether to ignore missing fields.
    */
-  public static validate(options: Partial<auth.OIDCAuthProviderConfig>, ignoreMissingFields = false): void {
+  public static validate(options: Partial<OIDCAuthProviderConfig>, ignoreMissingFields = false): void {
     const validKeys = {
       enabled: true,
       displayName: true,
@@ -808,7 +809,7 @@ export class OIDCConfig implements auth.OIDCAuthProviderConfig {
   }
 
   /** @return {OIDCAuthProviderConfig} The plain object representation of the OIDCConfig. */
-  public toJSON(): auth.OIDCAuthProviderConfig {
+  public toJSON(): OIDCAuthProviderConfig {
     return {
       enabled: this.enabled,
       displayName: this.displayName,

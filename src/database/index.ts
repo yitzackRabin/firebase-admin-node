@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-import { FirebaseApp } from '../firebase-app';
+import { app } from '../namespace-types';
 import { ServerValue as sv } from '@firebase/database';
-import * as adminDb from './database';
 import * as firebaseDbTypesApi from '@firebase/database-types';
-import * as firebaseAdmin from '../index';
 
-export function database(app?: FirebaseApp): adminDb.Database {
-  if (typeof(app) === 'undefined') {
-    app = firebaseAdmin.app();
-  }
-  return app.database();
-}
+export declare function database(app?: app.App): database.Database;
 
 /**
  * We must define a namespace to make the typings work correctly. Otherwise
@@ -35,12 +28,38 @@ export function database(app?: FirebaseApp): adminDb.Database {
  * match the namespacing in the re-export inside src/index.d.ts
  */
 /* eslint-disable @typescript-eslint/no-namespace */
-export namespace admin.database {
+export namespace database {
   // See https://github.com/microsoft/TypeScript/issues/4336
   /* eslint-disable @typescript-eslint/no-unused-vars */
   // See https://github.com/typescript-eslint/typescript-eslint/issues/363
+  export interface Database extends firebaseDbTypesApi.FirebaseDatabase {
+    /**
+     * Gets the currently applied security rules as a string. The return value consists of
+     * the rules source including comments.
+     *
+     * @return A promise fulfilled with the rules as a raw string.
+     */
+    getRules(): Promise<string>;
+
+    /**
+     * Gets the currently applied security rules as a parsed JSON object. Any comments in
+     * the original source are stripped away.
+     *
+     * @return A promise fulfilled with the parsed rules object.
+     */
+    getRulesJSON(): Promise<object>;
+
+    /**
+     * Sets the specified rules on the Firebase Realtime Database instance. If the rules source is
+     * specified as a string or a Buffer, it may include comments.
+     *
+     * @param source Source of the rules to apply. Must not be `null` or empty.
+     * @return Resolves when the rules are set on the Realtime Database.
+     */
+    setRules(source: string | Buffer | object): Promise<void>;
+  }
+
   export import DataSnapshot = firebaseDbTypesApi.DataSnapshot;
-  export import Database = adminDb.Database;
   export import EventType = firebaseDbTypesApi.EventType;
   export import OnDisconnect = firebaseDbTypesApi.OnDisconnect;
   export import Query = firebaseDbTypesApi.Query;

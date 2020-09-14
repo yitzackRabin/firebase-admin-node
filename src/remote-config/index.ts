@@ -14,15 +14,9 @@
  * limitations under the License.
  */
 
-import { FirebaseApp } from '../firebase-app';
-import * as firebaseAdmin from '../index';
+import { app } from '../namespace-types';
 
-export function remoteConfig(app?: FirebaseApp): remoteConfig.RemoteConfig {
-  if (typeof(app) === 'undefined') {
-    app = firebaseAdmin.app();
-  }
-  return app.remoteConfig();
-}
+export declare function remoteConfig(app?: app.App): remoteConfig.RemoteConfig;
 
 /**
  * We must define a namespace to make the typings work correctly. Otherwise
@@ -299,7 +293,7 @@ export namespace remoteConfig {
    * [`admin.remoteConfig()`](admin.remoteConfig#remoteConfig).
    */
   export interface RemoteConfig {
-    app: FirebaseApp;
+    app: app.App;
 
     /**
      * Gets the current active version of the {@link admin.remoteConfig.RemoteConfigTemplate

@@ -36,13 +36,15 @@ interface ServerToClientCode {
   [code: string]: string;
 }
 
+import { FirebaseError as FirebaseErrorInterface } from '../namespace-types';
+
 /**
  * Firebase error code structure. This extends Error.
  *
  * @param {ErrorInfo} errorInfo The error information (code and message).
  * @constructor
  */
-export class FirebaseError extends Error {
+export class FirebaseError extends Error implements FirebaseErrorInterface {
   constructor(private errorInfo: ErrorInfo) {
     super(errorInfo.message);
 

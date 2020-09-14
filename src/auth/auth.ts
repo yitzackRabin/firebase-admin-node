@@ -50,6 +50,9 @@ import ListUsersResult = auth.ListUsersResult;
 import DeleteUsersResult = auth.DeleteUsersResult;
 import DecodedIdToken = auth.DecodedIdToken;
 import SessionCookieOptions = auth.SessionCookieOptions;
+import BaseAuthInterface = auth.BaseAuth;
+import TenantAwareAuthInterface = auth.TenantAwareAuth;
+import AuthInterface = auth.Auth;
 
 /**
  * Internals of an Auth instance.
@@ -70,7 +73,7 @@ class AuthInternals implements FirebaseServiceInternalsInterface {
 /**
  * Base Auth class. Mainly used for user management APIs.
  */
-export class BaseAuth<T extends AbstractAuthRequestHandler> implements auth.BaseAuth {
+export class BaseAuth<T extends AbstractAuthRequestHandler> implements BaseAuthInterface {
 
   protected readonly tokenGenerator: FirebaseTokenGenerator;
   protected readonly idTokenVerifier: FirebaseTokenVerifier;
@@ -690,7 +693,7 @@ export class BaseAuth<T extends AbstractAuthRequestHandler> implements auth.Base
 /**
  * The tenant aware Auth class.
  */
-export class TenantAwareAuth extends BaseAuth<TenantAwareAuthRequestHandler> implements auth.TenantAwareAuth {
+export class TenantAwareAuth extends BaseAuth<TenantAwareAuthRequestHandler> implements TenantAwareAuthInterface {
   public readonly tenantId: string;
 
   /**
@@ -787,7 +790,7 @@ export class TenantAwareAuth extends BaseAuth<TenantAwareAuthRequestHandler> imp
  * Auth service bound to the provided app.
  * An Auth instance can have multiple tenants.
  */
-export class Auth extends BaseAuth<AuthRequestHandler> implements FirebaseServiceInterface, auth.Auth {
+export class Auth extends BaseAuth<AuthRequestHandler> implements FirebaseServiceInterface, AuthInterface {
 
   public INTERNAL: AuthInternals = new AuthInternals();
   private readonly tenantManager_: TenantManager;

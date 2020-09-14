@@ -25,6 +25,7 @@ import {
 import { auth } from './index';
 
 import TenantOptions = auth.UpdateTenantRequest;
+import TenantInterface = auth.Tenant;
 
 /** The corresponding server side representation of a TenantOptions object. */
 export interface TenantOptionsServerRequest extends EmailSignInConfigServerRequest {
@@ -47,7 +48,7 @@ export interface TenantServerResponse {
 /**
  * Tenant class that defines a Firebase Auth tenant.
  */
-export class Tenant implements auth.Tenant {
+export class Tenant implements TenantInterface {
   public readonly tenantId: string;
   public readonly displayName?: string;
   public readonly emailSignInConfig?: EmailSignInConfig;

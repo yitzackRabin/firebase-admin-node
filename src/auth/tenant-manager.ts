@@ -27,6 +27,7 @@ import { auth } from './index';
 import ListTenantsResult = auth.ListTenantsResult;
 import CreateTenantRequest = auth.CreateTenantRequest;
 import UpdateTenantRequest = auth.UpdateTenantRequest;
+import TenantManagerInterface = auth.TenantManager;
 
 /**
  * Data structure used to help manage tenant related operations.
@@ -35,7 +36,7 @@ import UpdateTenantRequest = auth.UpdateTenantRequest;
  * - Getting a TenantAwareAuth instance for running Auth related operations (user mgmt, provider config mgmt, etc)
  *   in the context of a specified tenant.
  */
-export class TenantManager implements auth.TenantManager {
+export class TenantManager implements TenantManagerInterface {
   private readonly authRequestHandler: AuthRequestHandler;
   private readonly tenantsMap: {[key: string]: TenantAwareAuth};
 

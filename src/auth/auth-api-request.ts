@@ -48,7 +48,10 @@ import ActionCodeSettings = auth.ActionCodeSettings;
 import UserImportOptions = auth.UserImportOptions;
 import UserImportRecord = auth.UserImportRecord;
 import UserImportResult = auth.UserImportResult;
+import CreateRequest = auth.CreateRequest;
 import UpdateRequest = auth.UpdateRequest;
+import OIDCUpdateAuthProviderRequest = auth.OIDCUpdateAuthProviderRequest;
+import SAMLUpdateAuthProviderRequest = auth.SAMLUpdateAuthProviderRequest;
 
 /** Firebase Auth request header. */
 const FIREBASE_AUTH_HEADER = {
@@ -1366,7 +1369,7 @@ export abstract class AbstractAuthRequestHandler {
    * @return {Promise<string>} A promise that resolves when the operation completes
    *     with the user id that was created.
    */
-  public createNewAccount(properties: auth.CreateRequest): Promise<string> {
+  public createNewAccount(properties: CreateRequest): Promise<string> {
     if (!validator.isNonNullObject(properties)) {
       return Promise.reject(
         new FirebaseAuthError(
@@ -1535,7 +1538,7 @@ export abstract class AbstractAuthRequestHandler {
     // Construct backend request.
     let request;
     try {
-      request = OIDCConfig.buildServerRequest(options as auth.OIDCAuthProviderConfig) || {};
+      request = OIDCConfig.buildServerRequest(options) || {};
     } catch (e) {
       return Promise.reject(e);
     }
@@ -1561,7 +1564,7 @@ export abstract class AbstractAuthRequestHandler {
    *     configuration.
    */
   public updateOAuthIdpConfig(
-    providerId: string, options: auth.OIDCUpdateAuthProviderRequest): Promise<OIDCConfigServerResponse> {
+    providerId: string, options: OIDCUpdateAuthProviderRequest): Promise<OIDCConfigServerResponse> {
     if (!OIDCConfig.isProviderId(providerId)) {
       return Promise.reject(new FirebaseAuthError(AuthClientErrorCode.INVALID_PROVIDER_ID));
     }
@@ -1658,7 +1661,7 @@ export abstract class AbstractAuthRequestHandler {
     // Construct backend request.
     let request;
     try {
-      request = SAMLConfig.buildServerRequest(options as auth.SAMLAuthProviderConfig) || {};
+      request = SAMLConfig.buildServerRequest(options) || {};
     } catch (e) {
       return Promise.reject(e);
     }
@@ -1684,7 +1687,7 @@ export abstract class AbstractAuthRequestHandler {
    *     configuration.
    */
   public updateInboundSamlConfig(
-    providerId: string, options: auth.SAMLUpdateAuthProviderRequest): Promise<SAMLConfigServerResponse> {
+    providerId: string, options: SAMLUpdateAuthProviderRequest): Promise<SAMLConfigServerResponse> {
     if (!SAMLConfig.isProviderId(providerId)) {
       return Promise.reject(new FirebaseAuthError(AuthClientErrorCode.INVALID_PROVIDER_ID));
     }

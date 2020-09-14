@@ -1,16 +1,19 @@
-import { FirebaseApp } from '../firebase-app';
-import { FirebaseArrayIndexError } from '../utils/error';
-import * as firebaseAdmin from '../index';
+import { app, FirebaseArrayIndexError } from '../namespace-types';
 
-export function auth(app?: FirebaseApp): auth.Auth {
-  if (typeof(app) === 'undefined') {
-    app = firebaseAdmin.app();
-  }
-  return app.auth();
-}
+/**
+ * Returns an `Auth` instance.
+ *
+ * @param app - The Firebase App instance.
+ * @returns An `Auth` instance.
+ */
+export declare function auth(app?: app.App): auth.Auth;
 
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/ban-types */
+
+/**
+ * Firebase Auth namespace.
+ */
 export namespace auth {
 
   /**
@@ -1940,7 +1943,7 @@ export namespace auth {
   }
 
   export interface Auth extends BaseAuth {
-    app: FirebaseApp;
+    app: app.App;
 
     /**
      * @return The tenant manager instance associated with the current project.

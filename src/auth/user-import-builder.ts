@@ -17,7 +17,8 @@
 import { deepCopy, deepExtend } from '../utils/deep-copy';
 import * as utils from '../utils';
 import * as validator from '../utils/validator';
-import { AuthClientErrorCode, FirebaseAuthError, FirebaseArrayIndexError } from '../utils/error';
+import { AuthClientErrorCode, FirebaseAuthError } from '../utils/error';
+import { FirebaseArrayIndexError } from '../namespace-types';
 import { auth } from './index';
 
 import UserImportOptions = auth.UserImportOptions;

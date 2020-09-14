@@ -21,11 +21,11 @@ import { FirebaseApp } from '../firebase-app';
 import { FirebaseDatabaseError, AppErrorCodes, FirebaseAppError } from '../utils/error';
 import { FirebaseServiceInterface, FirebaseServiceInternalsInterface } from '../firebase-service';
 import { Database as DatabaseImpl } from '@firebase/database';
-import { Database } from './database';
 
 import * as validator from '../utils/validator';
 import { AuthorizedHttpClient, HttpRequestConfig, HttpError } from '../utils/api-request';
 import { getSdkVersion } from '../utils/index';
+import { database } from './index';
 
 /**
  * Internals of a Database instance.
@@ -33,7 +33,7 @@ import { getSdkVersion } from '../utils/index';
 class DatabaseInternals implements FirebaseServiceInternalsInterface {
 
   public databases: {
-    [dbUrl: string]: Database;
+    [dbUrl: string]: database.Database;
   } = {};
 
   /**
@@ -75,7 +75,7 @@ export class DatabaseService implements FirebaseServiceInterface {
     return this.appInternal;
   }
 
-  public getDatabase(url?: string): Database {
+  public getDatabase(url?: string): database.Database {
     const dbUrl: string = this.ensureUrl(url);
     if (!validator.isNonEmptyString(dbUrl)) {
       throw new FirebaseDatabaseError({
@@ -84,7 +84,7 @@ export class DatabaseService implements FirebaseServiceInterface {
       });
     }
 
-    let db: Database = this.INTERNAL.databases[dbUrl];
+    let db: database.Database = this.INTERNAL.databases[dbUrl];
     if (typeof db === 'undefined') {
       const rtdb = require('@firebase/database'); // eslint-disable-line @typescript-eslint/no-var-requires
       db = rtdb.initStandalone(this.appInternal, dbUrl, getSdkVersion()).instance;
