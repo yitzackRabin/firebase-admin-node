@@ -55,6 +55,9 @@ jobs:
         npm run build
         npm run build:tests
 
+    - name: Verify API report
+      run: npm run api:verify-report
+
     - name: Run unit tests
       run: npm test
 

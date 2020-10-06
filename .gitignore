@@ -9,6 +9,7 @@ typings/
 coverage/
 node_modules/
 .nyc_output/
+temp/
 
 # Real key file should not be checked in
 test/resources/key.json

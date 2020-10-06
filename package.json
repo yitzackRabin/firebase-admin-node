@@ -20,6 +20,8 @@
     "test:coverage": "nyc npm run test:unit",
     "lint:src": "eslint src/ --ext .ts",
     "lint:test": "eslint test/ --ext .ts",
+    "api:verify-report": "api-extractor run",
+    "api:update-report": "api-extractor run --local --verbose",
     "apidocs": "node docgen/generate-docs.js --api node"
   },
   "nyc": {
@@ -69,6 +71,7 @@
     "@firebase/app": "^0.6.9",
     "@firebase/auth": "^0.14.9",
     "@firebase/auth-types": "^0.10.1",
+    "@microsoft/api-extractor": "^7.10.4",
     "@types/bcrypt": "^2.0.0",
     "@types/chai": "^4.0.0",
     "@types/chai-as-promised": "^7.1.0",
