@@ -832,7 +832,6 @@ export namespace messaging {
         title?: string;
         vibrate?: number | number[];
     }
-    {};
 }
 
 // @public

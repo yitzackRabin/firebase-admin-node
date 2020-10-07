@@ -71,6 +71,7 @@
     "@firebase/app": "^0.6.9",
     "@firebase/auth": "^0.14.9",
     "@firebase/auth-types": "^0.10.1",
+    "@microsoft/api-documenter": "^7.9.7",
     "@microsoft/api-extractor": "^7.10.4",
     "@types/bcrypt": "^2.0.0",
     "@types/chai": "^4.0.0",
