@@ -104,7 +104,7 @@ gulp.task('compile_test', function() {
 });
 
 gulp.task('copyTypings', function() {
-  return gulp.src(['src/index.d.ts', 'src/default-namespace.d.ts'])
+  return gulp.src(['src/index.d.ts'])
     // Add header
     .pipe(header(banner))
     .pipe(gulp.dest(paths.build))

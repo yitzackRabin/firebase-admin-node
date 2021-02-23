@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-import * as admin from './default-namespace';
+import * as admin from './main-entrypoint';
 
 declare module 'firebase-admin' {
 }

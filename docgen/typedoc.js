@@ -16,11 +16,9 @@
  */
 
 const options = {
-  includeDeclarations: true,
+  excludePrivate: true,
   excludeExternals: true,
-  ignoreCompilerErrors: true,
   name: 'Admin Node.js SDK',
-  mode: 'file',
   hideGenerator: true
 };
 

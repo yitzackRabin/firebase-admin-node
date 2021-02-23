@@ -1,123 +1,123 @@
 toc:
-- title: "admin"
-  path: /docs/reference/admin/node/admin
+- title: "firebase-admin"
+  path: /docs/reference/admin/node/modules/main_entrypoint
   section:
-  - title: "AppOptions"
-    path: /docs/reference/admin/node/admin.AppOptions
-  - title: "FirebaseArrayIndexError"
-    path: /docs/reference/admin/node/admin.FirebaseArrayIndexError
-  - title: "FirebaseError"
-    path: /docs/reference/admin/node/admin.FirebaseError
-  - title: "GoogleOAuthAccessToken"
-    path: /docs/reference/admin/node/admin.GoogleOAuthAccessToken
-  - title: "ServiceAccount"
-    path: /docs/reference/admin/node/admin.ServiceAccount
+  - title: "app"
+    path: /docs/reference/admin/node/modules/main_entrypoint.app-1
+  - title: "auth"
+    path: /docs/reference/admin/node/modules/auth
+  - title: "credential"
+    path: /docs/reference/admin/node/modules/main_entrypoint.credential-1
 
-- title: "admin.app"
-  path: /docs/reference/admin/node/admin.app
+- title: "firebase-admin/app"
+  path: /docs/reference/admin/node/modules/app
   section:
   - title: "App"
-    path: /docs/reference/admin/node/admin.app.App-1
+    path: /docs/reference/admin/node/interfaces/app.app-1
+  - title: "AppOptions"
+    path: /docs/reference/admin/node/interfaces/app.appoptions
+  - title: "FirebaseArrayIndexError"
+    path: /docs/reference/admin/node/interfaces/app.firebasearrayindexerror
+  - title: "FirebaseError"
+    path: /docs/reference/admin/node/interfaces/app.firebaseerror
+  - title: "GoogleOAuthAccessToken"
+    path: /docs/reference/admin/node/interfaces/app.googleoauthaccesstoken
+  - title: "ServiceAccount"
+    path: /docs/reference/admin/node/interfaces/app.serviceaccount
 
-- title: "admin.auth"
-  path: /docs/reference/admin/node/admin.auth
+- title: "firebase-admin/auth"
+  path: /docs/reference/admin/node/modules/auth
   section:
   - title: "Auth"
-    path: /docs/reference/admin/node/admin.auth.Auth-1
+    path: /docs/reference/admin/node/classes/auth.auth-2
   - title: "ActionCodeSettings"
-    path: /docs/reference/admin/node/admin.auth.ActionCodeSettings
+    path: /docs/reference/admin/node/interfaces/auth.actioncodesettings
   - title: "AuthProviderConfig"
-    path: /docs/reference/admin/node/admin.auth.AuthProviderConfig
+    path: /docs/reference/admin/node/interfaces/auth.authproviderconfig
   - title: "AuthProviderConfigFilter"
-    path: /docs/reference/admin/node/admin.auth.AuthProviderConfigFilter
+    path: /docs/reference/admin/node/interfaces/auth.authproviderconfigfilter
   - title: "CreateMultiFactorInfoRequest"
-    path: /docs/reference/admin/node/admin.auth.CreateMultiFactorInfoRequest
+    path: /docs/reference/admin/node/interfaces/auth.createmultifactorinforequest
   - title: "CreatePhoneMultiFactorInfoRequest"
-    path: /docs/reference/admin/node/admin.auth.CreatePhoneMultiFactorInfoRequest
+    path: /docs/reference/admin/node/interfaces/auth.createphonemultifactorinforequest
   - title: "CreateRequest"
-    path: /docs/reference/admin/node/admin.auth.CreateRequest
+    path: /docs/reference/admin/node/interfaces/auth.createrequest
   - title: "EmailSignInProviderConfig"
-    path: /docs/reference/admin/node/admin.auth.EmailSignInProviderConfig
+    path: /docs/reference/admin/node/interfaces/auth.emailsigninproviderconfig
   - title: "ListProviderConfigResults"
-    path: /docs/reference/admin/node/admin.auth.ListProviderConfigResults
+    path: /docs/reference/admin/node/interfaces/auth.listproviderconfigresults
   - title: "ListTenantsResult"
-    path: /docs/reference/admin/node/admin.auth.ListTenantsResult
+    path: /docs/reference/admin/node/interfaces/auth.listtenantsresult
   - title: "MultiFactorConfig"
-    path: /docs/reference/admin/node/admin.auth.MultiFactorConfig
+    path: /docs/reference/admin/node/interfaces/auth.multifactorconfig
   - title: "MultiFactorCreateSettings"
-    path: /docs/reference/admin/node/admin.auth.MultiFactorCreateSettings
+    path: /docs/reference/admin/node/interfaces/auth.multifactorcreatesettings
   - title: "MultiFactorInfo"
-    path: /docs/reference/admin/node/admin.auth.MultiFactorInfo
+    path: /docs/reference/admin/node/classes/auth.multifactorinfo
   - title: "MultiFactorSettings"
-    path: /docs/reference/admin/node/admin.auth.MultiFactorSettings
+    path: /docs/reference/admin/node/classes/auth.multifactorsettings
   - title: "MultiFactorUpdateSettings"
-    path: /docs/reference/admin/node/admin.auth.MultiFactorUpdateSettings
+    path: /docs/reference/admin/node/interfaces/auth.multifactorupdatesettings
   - title: "OIDCAuthProviderConfig"
-    path: /docs/reference/admin/node/admin.auth.OIDCAuthProviderConfig
+    path: /docs/reference/admin/node/interfaces/auth.oidcauthproviderconfig
   - title: "OIDCUpdateAuthProviderRequest"
-    path: /docs/reference/admin/node/admin.auth.OIDCUpdateAuthProviderRequest
+    path: /docs/reference/admin/node/interfaces/auth.oidcupdateauthproviderrequest
   - title: "PhoneMultiFactorInfo"
-    path: /docs/reference/admin/node/admin.auth.PhoneMultiFactorInfo
+    path: /docs/reference/admin/node/classes/auth.phonemultifactorinfo
   - title: "SAMLAuthProviderConfig"
-    path: /docs/reference/admin/node/admin.auth.SAMLAuthProviderConfig
+    path: /docs/reference/admin/node/interfaces/auth.samlauthproviderconfig
   - title: "SAMLUpdateAuthProviderRequest"
-    path: /docs/reference/admin/node/admin.auth.SAMLUpdateAuthProviderRequest
+    path: /docs/reference/admin/node/interfaces/auth.samlupdateauthproviderrequest
   - title: "Tenant"
-    path: /docs/reference/admin/node/admin.auth.Tenant
+    path: /docs/reference/admin/node/classes/auth.tenant
   - title: "TenantAwareAuth"
-    path: /docs/reference/admin/node/admin.auth.TenantAwareAuth
+    path: /docs/reference/admin/node/classes/auth.tenantawareauth
   - title: "TenantManager"
-    path: /docs/reference/admin/node/admin.auth.TenantManager
+    path: /docs/reference/admin/node/classes/auth.tenantmanager
   - title: "UpdateMultiFactorInfoRequest"
-    path: /docs/reference/admin/node/admin.auth.UpdateMultiFactorInfoRequest
+    path: /docs/reference/admin/node/interfaces/auth.updatemultifactorinforequest
   - title: "UpdatePhoneMultiFactorInfoRequest"
-    path: /docs/reference/admin/node/admin.auth.UpdatePhoneMultiFactorInfoRequest
+    path: /docs/reference/admin/node/interfaces/auth.updatephonemultifactorinforequest
   - title: "UpdateRequest"
-    path: /docs/reference/admin/node/admin.auth.UpdateRequest
+    path: /docs/reference/admin/node/interfaces/auth.updaterequest
   - title: "UpdateTenantRequest"
-    path: /docs/reference/admin/node/admin.auth.UpdateTenantRequest
+    path: /docs/reference/admin/node/interfaces/auth.updatetenantrequest
   - title: "UserImportOptions"
-    path: /docs/reference/admin/node/admin.auth.UserImportOptions
+    path: /docs/reference/admin/node/interfaces/auth.userimportoptions
   - title: "UserImportRecord"
-    path: /docs/reference/admin/node/admin.auth.UserImportRecord
+    path: /docs/reference/admin/node/classes/auth.userimportrecord
   - title: "UserImportResult"
-    path: /docs/reference/admin/node/admin.auth.UserImportResult
+    path: /docs/reference/admin/node/interfaces/auth.userimportresult
   - title: "DecodedIdToken"
-    path: /docs/reference/admin/node/admin.auth.DecodedIdToken
+    path: /docs/reference/admin/node/interfaces/auth.decodedidtoken
   - title: "UserInfo"
-    path: /docs/reference/admin/node/admin.auth.UserInfo
+    path: /docs/reference/admin/node/classes/auth.userinfo
   - title: "UserMetadata"
-    path: /docs/reference/admin/node/admin.auth.UserMetadata
+    path: /docs/reference/admin/node/classes/auth.usermetadata
   - title: "UserMetadataRequest"
-    path: /docs/reference/admin/node/admin.auth.UserMetadataRequest
+    path: /docs/reference/admin/node/interfaces/auth.usermetadatarequest
   - title: "UserProviderRequest"
-    path: /docs/reference/admin/node/admin.auth.UserProviderRequest
+    path: /docs/reference/admin/node/interfaces/auth.userproviderrequest
   - title: "UserRecord"
-    path: /docs/reference/admin/node/admin.auth.UserRecord
+    path: /docs/reference/admin/node/classes/auth.userrecord
   - title: "SessionCookieOptions"
-    path: /docs/reference/admin/node/admin.auth.SessionCookieOptions
+    path: /docs/reference/admin/node/interfaces/auth.sessioncookieoptions
   - title: "BaseAuth"
-    path: /docs/reference/admin/node/admin.auth.BaseAuth
+    path: /docs/reference/admin/node/classes/auth.baseauth
   - title: "ListUsersResult"
-    path: /docs/reference/admin/node/admin.auth.ListUsersResult
+    path: /docs/reference/admin/node/interfaces/auth.listusersresult
   - title: "GetUsersResult"
-    path: /docs/reference/admin/node/admin.auth.GetUsersResult
+    path: /docs/reference/admin/node/interfaces/auth.getusersresult
   - title: "DeleteUsersResult"
-    path: /docs/reference/admin/node/admin.auth.DeleteUsersResult
+    path: /docs/reference/admin/node/interfaces/auth.deleteusersresult
   - title: "UidIdentifier"
-    path: /docs/reference/admin/node/admin.auth.UidIdentifier
+    path: /docs/reference/admin/node/interfaces/auth.uididentifier
   - title: "EmailIdentifier"
-    path: /docs/reference/admin/node/admin.auth.EmailIdentifier
+    path: /docs/reference/admin/node/interfaces/auth.emailidentifier
   - title: "PhoneIdentifier"
-    path: /docs/reference/admin/node/admin.auth.PhoneIdentifier
+    path: /docs/reference/admin/node/interfaces/auth.phoneidentifier
   - title: "ProviderIdentifier"
-    path: /docs/reference/admin/node/admin.auth.ProviderIdentifier
-
-- title: "admin.credential"
-  path: /docs/reference/admin/node/admin.credential
-  section:
-  - title: "Credential"
-    path: /docs/reference/admin/node/admin.credential.Credential-1
+    path: /docs/reference/admin/node/interfaces/auth.provideridentifier
 
 - title: "admin.database"
   path: /docs/reference/admin/node/admin.database
