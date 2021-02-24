@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module firebase-admin/instance-id
+ */
+
 import { FirebaseApp } from '../app/firebase-app';
 import { App, getApp } from '../app/index';
 import { InstanceId } from './instance-id';

@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module firebase-admin/auth
+ */
+
 export { ActionCodeSettings } from './action-code-settings-builder';
 
 export {

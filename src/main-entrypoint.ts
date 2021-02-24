@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module firebase-admin
+ */
+
 export * from './credential/index';
 export * from './firebase-namespace-api';
 export { auth } from './auth/index';

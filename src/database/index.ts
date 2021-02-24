@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module firebase-admin/database
+ */
+
 import * as rtdb from '@firebase/database-types';
 import {
   enableLogging as enableLoggingFunc,

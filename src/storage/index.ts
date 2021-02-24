@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module firebase-admin/storage
+ */
+
 import { App, getApp } from '../app';
 import { FirebaseApp } from '../app/firebase-app';
 import { Storage } from './storage';

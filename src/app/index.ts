@@ -15,6 +15,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module firebase-admin/app
+ */
+
 import { getSdkVersion } from '../utils';
 
 export { App, AppOptions, FirebaseArrayIndexError, FirebaseError } from './core'

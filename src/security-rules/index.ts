@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module firebase-admin/security-rules
+ */
+
 import { App, getApp } from '../app';
 import { FirebaseApp } from '../app/firebase-app';
 import { SecurityRules } from './security-rules';

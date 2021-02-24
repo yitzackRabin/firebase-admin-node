@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * @module firebase-admin/project-management
+ */
+
 import { App, getApp } from '../app';
 import { FirebaseApp } from '../app/firebase-app';
 import { ProjectManagement } from './project-management';
