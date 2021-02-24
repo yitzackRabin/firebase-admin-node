@@ -13,7 +13,7 @@ toc:
   path: /docs/reference/admin/node/modules/firebase_admin_app
   section:
   - title: "App"
-    path: /docs/reference/admin/node/interfaces/firebase_admin_app.app-1
+    path: /docs/reference/admin/node/interfaces/firebase_admin_app.app
   - title: "AppOptions"
     path: /docs/reference/admin/node/interfaces/firebase_admin_app.appoptions
   - title: "FirebaseArrayIndexError"
@@ -29,7 +29,7 @@ toc:
   path: /docs/reference/admin/node/modules/firebase_admin_auth
   section:
   - title: "Auth"
-    path: /docs/reference/admin/node/classes/firebase_admin_auth.auth-2
+    path: /docs/reference/admin/node/classes/firebase_admin_auth.auth-1
   - title: "ActionCodeSettings"
     path: /docs/reference/admin/node/interfaces/firebase_admin_auth.actioncodesettings
   - title: "AuthProviderConfig"
